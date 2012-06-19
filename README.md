@@ -1,7 +1,7 @@
 folder-video
 =================
 
-Folder-Video é um programa em Python que lê os arquivos de video de uma pasta local de sua escolha e gera uma interface em html5 via browser para acessar e organizar sua visualização.
+Folder-Video é um programa em Javascript que lê os arquivos de video de uma pasta local de sua escolha e gera uma interface em html5 via browser para acessar e organizar sua visualização.
 
 ---------------------------------------
 
@@ -10,7 +10,6 @@ Dependências
 
 Para rodar o Folder-Video você precisará de:
 
-- Python 2.7
 - Firefox 4+, Chrome 6+
 - Vídeos no formato: mp4, webm, ogg para Chrome
 - Vídeos no formato: webm, ogg para Firefox
@@ -25,10 +24,10 @@ Para rodar o Folder-Video você precisará de:
 Como usar
 -----------
 **No Linux/Mac OSX:**
-1º Copie a pasta "folder-video" para dentro de uma pasta que contenha seus vídeos.
-2º Entre na pasta "folder-video" e dê permissão de execução: $ chmod +x foldervideo.py
-3º Agora basta executar o programa: $ python foldervideo.py
-4º Abra o "index.html" no Chrome ou Firefox. Pronto! simples assim!
+1º Copie a pasta "folder-video" e abra o "index.html" no Chrome.
+2º Crie uma playlist colocando o caminho da pasta que contém seus vídeos
+3º Agora basta arrastar os videos no drag and drop
+4º Assista seus vídeos e marque aonde parou! simples assim.
 
 
 ---------------------------------------
@@ -36,9 +35,8 @@ Como usar
 Changelog
 -----------
 
-**v 1.0**:
+**v 0.1**:
 
-- Exibe os videos da pasta em que foi executado o "foldervideo.py" em uma página index.html
 - Vídeo pode ser marcado como visto e mesmo que feche o navegador não é desmarcado
 - Exibe os videos em fullscreen
 - Página é aberta no ultimo vídeo marcado

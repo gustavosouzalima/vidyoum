@@ -1,0 +1,73 @@
+/* Corners */
+.notify_nw,
+.notify_ne,
+.notify_se,
+.notify_sw{
+	float: left;
+}
+
+/* Sides */
+.notify_w,
+.notify_e {
+	float: left;
+}
+
+/* Center and Bottom */
+.notify_center,
+.notify_bottom {
+	clear: left;
+}
+
+/* Top and Bottom */
+.notify_n,
+.notify_s {
+	float: left;
+	height: 2px;
+}
+
+.notify_content {
+	float: left;
+	background: #1E211F;
+	color: #fff;
+	width: 250px;
+	padding: 0 20px;
+	border-radius: 10px;
+}
+.notify_content h3 {
+	width: 200px;
+	float:right;
+	font-size: 16px;
+}
+
+.notify_content p, .notify_content li {
+	width: 200px;
+	float:right;
+	padding-bottom: 6px;
+}
+
+.notify_center {
+	background: #1E211F;
+}
+
+.notification {
+	clear: left;
+	float: left;
+	list-style: none;
+}
+
+#notification_area {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	border-radius: 10px;
+	z-index: 9999;
+	opacity: 0.8;
+}
+
+.notification iframe {
+	border: 0;
+}
+
+.notification iframe body {
+	margin: 0;
+}

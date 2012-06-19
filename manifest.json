@@ -1,0 +1,14 @@
+{
+  "name": "Folder-Video",
+  "version": "0.0.1",
+  "description": "Folder-Video lê os arquivos de video de uma pasta local de sua escolha e gera uma interface em html5 via browser.",
+  "icons":{
+    "128":"img/video_128.png",
+    "16":"img/icon_16.png"
+  },
+  "app": {
+    "launch": {
+      "local_path": "index.html"
+    }
+  }
+}
