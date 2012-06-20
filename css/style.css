@@ -234,6 +234,8 @@ i.cloud {
     content: "....";
     background: url('../img/checkbox_unchecked.png') no-repeat;
     color: transparent;
+    position: relative;
+    left: -1px;
 }
 
 .checkbox-style input[type="checkbox"]:checked:after

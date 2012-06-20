@@ -1,7 +1,7 @@
 var nomeVideos = [],
     playlistVideo = [],
     numeroVideo = [],
-    checks = [],
+    marcados = [],
     videoList = [];
 // o nome das tabelas do localStorage estao definidas no db.js
 
@@ -35,57 +35,44 @@ function deletaDB() {
 
 // Coloca e recupera do localStorage o que foi marcado no checkbox
 function marcaVideo() {
-
-    db.query("checkbox", function(row) {  // a funcao de callback eh aplicada a cada coluna da tabela
-        if(row.numeroplaylist == 1) {
-            // teste.push(row.arquivovideo)
-            checks = row.marcados;
-        }
-    });
-
+    
+    var checks = db.query("checkbox", {numeroplaylist: 1});
+    if (checks.length > 1) {
+        marcados = checks[0]['marcados'];
+    } else {
+        db.insert("checkbox", {numeroplaylist: 1, marcados: "false"});
+    }
+    
     $('input:checkbox[name=checks]').each(function () {
         //init the checkbox
-        $(this).prop("checked", checks[this.value]?true:false);
+        $(this).prop("checked", marcados[this.value]?true:false);
         $(this).change(function () {
             $('input:checkbox[name=checks]').each(function () {
-                checks[this.value] = this.checked;
+                marcados[this.value] = this.checked;
             });
-            // CORRIGIR O PROBLEMA DE ESCREVER SEMPRE UMA NOVA LINHA
-            existeChecks = false;
-            if(existeChecks) {
-                // atualizo no localStorage os videos marcados
-                db.update("checkbox", {numeroplaylist: 1}, function(row) {
-                    row.marcados = checks;
-                    
-                    // the update callback function returns to the modified record
-                    return row;
-                    db.commit();
-                });
-            } else {
-                // insiro no localStorage os videos marcados
-                db.insert("checkbox", {numeroplaylist: 1, marcados:checks});
-                db.commit();
-            }
+            // atualizo no localStorage os videos marcados
+            db.update("checkbox", {numeroplaylist: 1}, function(row) {
+                row.marcados = marcados;
+                return row;
+            });
+            db.commit();
         });
     });
 
-    checks.shift()
-
-    var marcados = []
-    for(var i=0;i<checks.length;i++){
-        if(checks[i]==true) {
-            marcados.push(i)
+    var marcadostrue = [];
+    for(var i=0;i<marcados.length;i++){
+        if(marcados[i]==true) {
+            marcadostrue.push(i)
             // removo a imagem poster do video-player
             $('img.vjs-poster').remove();
         }
     }
 
-    if(marcados.length > 0  ) {
+    if(marcadostrue.length > 0  ) {
         // calcula qual o maior em posicao na playlist dos videos marcados
-        var ultimoMarcado = Math.max.apply(Math, marcados);
-        
+        var ultimoMarcado = Math.max.apply(Math, marcadostrue);
         // chama a funcao que gera o video com caminho completo
-        videoCompleto(ultimoMarcado);
+        videoCompleto(ultimoMarcado-1);
         document.getElementsByTagName('video')[0].src = caminhoCompleto;
     }
 }
@@ -191,16 +178,15 @@ function searchVideo(value) {
 var videoAteFinal = function(){
     var myPlayer = this;
 
-    foiateofim = db.query("videoateofim", {numeroplaylist: 1});
+    videoAtual = db.query("videoateofim", {numeroplaylist: 1});
 
-    $('input:checkbox[value='+foiateofim[0]['ultimomarcado']+']').attr('checked', true);
+    $('input:checkbox[value='+videoAtual[0]['ultimomarcado']+']').attr('checked', true);
     $('input:checkbox[name=checks]').each(function () {
-            checks[this.value] = this.checked;
+            marcados[this.value] = this.checked;
         });
-    console.log(checks)
     // atualizo o banco
     db.update("checkbox", {numeroplaylist: 1}, function(row) {
-        row.marcados = checks;
+        row.marcados = marcados;
         return row;
     });
     db.commit();

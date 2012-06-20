@@ -11,7 +11,7 @@ function bancoDeDados() {
         db.createTable("pastavideoatual", ["numeroplaylist"]);
         db.createTable("videoateofim", ["numeroplaylist", "ultimomarcado"]);
         
-        // default
+        // crio esses campos como default no inicio
         // db.insert("checkbox", {numeroplaylist: 1, marcados: " "});
         db.insert("videoateofim", {numeroplaylist: 1, ultimomarcado: " "});
 
@@ -23,8 +23,8 @@ function bancoDeDados() {
     // db.commit();
     // pegar um campo regatado do banco
     // var teste = db.query("pastavideo", {numeroplaylist: 1})
-    foiateofim = db.query("checkbox", {numeroplaylist: 1});
-    console.log(foiateofim)
+    // foiateofim = db.query("checkbox", {numeroplaylist: 1});
+    // console.log(foiateofim)
     // var teste1 = db.query("video", {numeroplaylist: 1})
     // console.log(teste1)
 
