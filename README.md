@@ -1,7 +1,10 @@
-folder-video
-=================
+=======
+vidyoum
+=======
 
-Folder-Video é um programa em Javascript que lê os arquivos de video de uma pasta local de sua escolha e gera uma interface em html5 via browser para acessar e organizar sua visualização.
+O VidyouM é um programa em Javascript que lê os arquivos de video de uma pasta local de sua escolha e através de uma interface em html5 via acessa e organizar sua visualização no navegador.
+
+***Manager yours videos!***
 
 ---------------------------------------
 
