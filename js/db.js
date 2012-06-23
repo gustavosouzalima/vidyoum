@@ -13,16 +13,22 @@ function bancoDeDados() {
         
         // crio esses campos como default no inicio
         // db.insert("checkbox", {numeroplaylist: 1, marcados: " "});
+        // db.insert("pastavideoatual", {numeroplaylist: 1});
         db.insert("videoateofim", {numeroplaylist: 1, ultimomarcado: " "});
 
         // commit the database to localStorage
         // all create/drop/insert/update/delete operations should be committed
         db.commit();
     }
+
+    // var numeroVideos = db.query("pastavideo");
+    // console.log(numeroVideos);
+
     // db.insert("pastavideo", {numeroplaylist: 1, caminho: "/teste"});
     // db.commit();
     // pegar um campo regatado do banco
-    // var teste = db.query("pastavideo", {numeroplaylist: 1})
+    var teste = db.query("checkbox")
+    console.log(teste)
     // foiateofim = db.query("checkbox", {numeroplaylist: 1});
     // console.log(foiateofim)
     // var teste1 = db.query("video", {numeroplaylist: 1})

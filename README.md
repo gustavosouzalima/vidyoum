@@ -10,9 +10,8 @@ Dependências
 
 Para rodar o Folder-Video você precisará de:
 
-- Firefox 4+, Chrome 6+
-- Vídeos no formato: mp4, webm, ogg para Chrome
-- Vídeos no formato: webm, ogg para Firefox
+- Chrome 6+
+- Vídeos no formato: mp4, webm, ogg
 
 
 **Adendos:**
@@ -28,6 +27,18 @@ Como usar
 2º Crie uma playlist colocando o caminho da pasta que contém seus vídeos
 3º Agora basta arrastar os videos no drag and drop
 4º Assista seus vídeos e marque aonde parou! simples assim.
+
+---------------------------------------
+
+
+Tecnologias e outros projetos utilizados
+----------------------------------------
+VideoJS - http://videojs.com/
+jQWidgets - http://www.jqwidgets.com/
+jQuery - http://jquery.com/
+jQuery UI Notify Widget - http://www.erichynds.com/examples/jquery-notify/
+localStorageDB - http://kailashnadh.name/code/localstoragedb/
+Zrssfeed - http://www.zazar.net/developers/jquery/zrssfeed/
 
 
 ---------------------------------------
@@ -45,6 +56,7 @@ Changelog
 TO DO:
 
 - Melhorar a UI, inicialmente está feio e sem grandes estilizações :(
+- Adequá-lo 100% para o FireFox.
 
 ---------------------------------------
 

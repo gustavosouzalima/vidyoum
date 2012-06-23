@@ -33,7 +33,6 @@ $('#salvarcaminhovideo').click(function(){
 	if(caminhoInserido.length > 0) {
 		if(caminhoInserido[0] == "/"){
 			caminhoParsed = caminhoInserido.split(' ').join('%20')
-		    localStorage[caminhovideo]=JSON.stringify(caminhoParsed);
 		    notificacaoAcerto('<h3>playlist salva para a pasta:</h3><p>'+caminhoInserido+'<p>');
 		} else {
 			notificacaoErro('<h3>A pasta com seus vídeos deve começar com barra "/"</h3>');

@@ -12,6 +12,9 @@ h3 {
     font-size: 14px;
 }
 
+.nofloat {
+    clear: both;
+}
 #tudo {
     margin-top: 15px;
 }
@@ -21,34 +24,32 @@ h3 {
     margin-left: 10px;
 }
 #sidebar-right {
-    width: 20%;
-    float: right;
+    width: 15%;
+    float: left;
+    margin-left: 2%;
 }
 
 #videoplayer {
     float: left;
-    margin-left: 60px;
+    margin-left: 7%;
 }
-#principal {
+#adiciona-playlist {
     margin: 0px auto;
+}
+
+a#adicionaplaylist {
+    margin: 10px;
 }
 
 .clear {
     clear: both;
 }
 
-
 div#caminhovideo {
     padding: 15px;
-    margin-bottom: 10px;
-}
-
-div#caminhovideo:after {
-    content: ".";
-    display: block;
-    height: 0;
-    clear: both;
-    visibility: hidden;
+    border: 1px solid #CCC;
+    margin: 10px 0px;
+    display: none;
 }
 
 div#caminhovideo label {
@@ -66,46 +67,34 @@ div#videopasta {
     display: inline;
 }
 
-div.caixa {
-    padding: 20px;
-    border: 1px solid #ccc;
-    margin: 10px -20px 20px;
-}
-
-div.caixa input {
-    width: 25%;
-    padding: 2px;
-}
-
 div#videopasta span {
     float:left;
 }
 
 div#lista_videos {
-padding: 15px 0px;
-}
-
-#lista_videos {
 max-height: 300px;
 font-size:12px;
+}
 
--moz-column-count: 3;
--webkit-column-count: 3;
-
--moz-column-width: 20px; 
--webkit-column-width: 20px; 
-
--moz-column-gap: 20px;
--webkit-column-gap: 20px;
+div#lista_videos p{
+margin-bottom: 5px;
+float: left;
+width: 25%;
 }
 
 .colunaunica {
-    -moz-column-count: 1!important;
-    -webkit-column-count: 1!important;
+width: 100%!important;
+padding: 10px 0;
 }
 
 div#lista_videos p:first-child{
 margin-top: 0px;
+}
+
+div#lista_videos p a{
+font-size: 14px;
+text-decoration: none;
+padding: 0px 4px;
 }
 
 #video {
@@ -133,7 +122,7 @@ button.pause {
 }
 
 div#drop_zone div#borda {
-    border: 4px dashed #68a5b7;
+    border: 8px dashed #68a5b7;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -147,13 +136,10 @@ div#drop_zone div#borda:after {
 }
 
 div#drop_zone {
-    width: 61%;
-    margin: 0 auto;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
     padding: 10px;
-    margin-bottom: 20px;
     background: #7CC0D5;
 }
 
@@ -176,7 +162,7 @@ div#drop_zone span {
 }
 
 .hover {
-    border-color: red!important;
+    border-color: #0C0!important;
 }
 
 /* -------------- Cloud -------------- */
@@ -261,4 +247,12 @@ i.cloud {
     color: transparent;
     position: relative;
     left: -14px;
+}
+
+.icone-lixo {
+    background: url("../img/icones/glyphicons_016_bin.png") no-repeat;
+}
+
+#playlists_existentes {
+    padding: 10px;
 }

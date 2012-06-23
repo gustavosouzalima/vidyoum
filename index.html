@@ -2,26 +2,27 @@
 <html lang="pt-br">
 <head>
     <meta charset="utf-8">
-    <title>Folder-Video</title>
-    <link rel="stylesheet" href="videojs/video-js.min.css" rel="stylesheet">
+    <title>VidyouM</title>
+    <link rel="stylesheet" href="js/libs/videojs/video-js.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="css/notify.css" rel="stylesheet">
     <link rel="stylesheet" href="css/google-buttons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/jqwidgets/jqx.base.css" type="text/css" />
+    <!-- O jquery é chamado antes dos outros codigos javascritp -->
+    <script type="text/javascript" src="js/libs/jquery-1.7.2.min.js" ></script>
 </head>
 <body>
   <div id="tudo">
     <div id="sidebar-left">
       <div id="playlists">
           <ul style='margin-left: 20px;'>
-              <li>Playlist Atual</li>
-              <li>Todas Playlists</li>
+              <li>Playlists Existentes</li>
+              <li>Vídeos da Playlist Atual</li>
           </ul>
+          <div id="playlists_existentes">
+          </div>
 
           <div id="lista_videos" class="checkbox-style">
-          </div>
-          
-          <div>
           </div>
       </div>
     </div>
@@ -32,54 +33,58 @@
         data-setup="{}">
       <source src="" type="video/mp4"/>
       </video>
-    </div>
+      <!-- inicio div adiciona-playlist -->
+        <div id="nova-playlist">
+          <ul style='margin-left: 20px;'>
+              <li>Criar nova Playlist</li>
+          </ul>
+        
+          <div id="adiciona-playlist">
+            <a href="#button" id="adicionaplaylist" class="g-button green">Adicionar uma nova playlist</a>
+            <div id="caminhovideo">
+              <label for="pastadosvideos">
+                <p>1º Coloque AQUI qual a pasta com seus vídeos → </p>
+              </label>
+              <input type="text" id="pastadosvideos" autofocus="autofocus" placeholder="Ex: /home/joao/videos">
+              <a href="#button" id="salvarcaminhovideo" class="g-button blue">Salvar</a>
+            </div>
+          </div> <!-- fim div adiciona-playlist -->
+      </div> <!-- fim div nova-playlist -->
+    </div> <!-- fim div videoplayer -->
 
     <div id="sidebar-right">
-      <section>
         <div id="drop_zone" webkitdirectory>
           <div id="borda">
             <i class="cloud"></i>
             <span>Arraste seus videos para cá</span>
           </div>
         </div>
-      </section>
     </div>
-
-    <div class="clear"></div>
-
-    <div id="principal">
-      <ul style='margin-left: 20px;'>
-          <li>Adicionar nova Playlist</li>
-      </ul>
-      <div id="caminhovideo"class="caixa">
-        <label for="pastadosvideos">
-          <p>1º Coloque AQUI qual a pasta com seus vídeos → </p>
-        </label>
-        <input type="text" id="pastadosvideos" autofocus="autofocus" placeholder="Ex: /home/joao/videos">
-        <a href="#button" id="salvarcaminhovideo" class="g-button green">Salvar</a>
-      </div>
+    <div id="docking" style="position:relative; bottom: 350px; left: 6px;">
+        <div>
+            <div id="window1" style="height: 220px;">
+              <div>RSS</div>
+                    <div id="rss1">
+                    </div>
+              </div>
+        </div>
     </div>
-
   </div> <!-- fim div tudo -->
-  
-  <script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
-  <script type="text/javascript" async defer src="js/localstoragedb.min.js"></script>
-  <script type="text/javascript" async defer src="js/db.js"></script>
-  <script type="text/javascript" async defer src="js/script.js"></script>
-  <script type="text/javascript" async defer src="js/jquery-notify.js"></script>
-  <script type="text/javascript" async defer src="js/notificacoesgerais.js"></script>
-  <script type="text/javascript" async defer src="videojs/video.min.js"></script>
-  <script type="text/javascript" defer src="js/jqwidgets/jqxcore.js"></script>
-  <script type="text/javascript" defer src="js/jqwidgets/jqxtabs.js"></script>
-  <script type="text/javascript">
-  $(document).ready(function () {
-      $('#playlists').jqxTabs({ width: 300 })
-                   .jqxTabs({ selectedItem: 0 })
-                   .jqxTabs({ animationType: 'fade' })
-                   .jqxTabs({ selectionTracker:true});
-
-      $('#principal').jqxTabs({ width: 650, height: 100 });
-  });
-</script>
+<!-- <div class="clear"></div> -->
+<!-- scripts libs -->
+<script type="text/javascript" async defer src="js/libs/localstoragedb.min.js"></script>
+<script type="text/javascript" async defer src="js/libs/videojs/video.min.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxtabs.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxdocking.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxwindow.js"></script>
+<script type="text/javascript" defer src="js/libs/jquery.zrssfeed.min.js"></script>
+<script type="text/javascript" defer src="js/libs/jquery.vticker.js"></script>
+<!-- my scripts -->
+<script type="text/javascript" async defer src="js/db.js"></script>
+<script type="text/javascript" async defer src="js/core.js"></script>
+<script type="text/javascript" async defer src="js/libs/jquery-notify.js"></script>
+<script type="text/javascript" async defer src="js/notificacoesgerais.js"></script>
+<script type="text/javascript" defer defer src="js/onload-scripts.js"></script>
 </body>
 </html>
