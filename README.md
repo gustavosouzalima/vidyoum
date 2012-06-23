@@ -2,7 +2,7 @@
 VidyouM
 =======
 
-O VidyouM é um programa em Javascript que lê os arquivos de video de uma pasta local de sua escolha e através de uma interface em html5 via acessa e organizar sua visualização no navegador. Ele usa o localStorage para arquivar seus vídeos marcados para serem vistos mais tarde.
+O VidyouM é um programa em Javascript que lê os arquivos de video de uma pasta local de sua escolha e através de uma interface em HTML5 acessa e organizar sua visualização no navegador. Ele usa o localStorage para arquivar seus vídeos marcados para serem vistos mais tarde.
 
 ***Manage your videos!***
 

@@ -79,6 +79,17 @@
             </div>
         </div>
     </div>
+    <!-- some actions from Javascript -->
+    <button id="play">Play</button>
+    <button id="pause">Pause</button>
+    <button id="duration">Show duration</button>
+    <div id="duration-log"></div>
+    <script>
+      var movie = document.getElementById('video');
+      document.getElementById('play').addEventListener('click', function() { movie.play(); }, false);
+      document.getElementById('pause').addEventListener('click', function() { movie.pause(); }, false);
+      document.getElementById('duration').addEventListener('click', function() { document.querySelector('#duration-log').textContent = movie.duration; }, false);
+    </script>
   </div> <!-- fim div tudo -->
 <!-- <div class="clear"></div> -->
 <!-- scripts libs -->

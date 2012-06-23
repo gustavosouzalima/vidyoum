@@ -218,23 +218,31 @@ var videoAteFinal = function(){
 
 // PLAY e PAUSE do video
 function play(video, playlist) {
-    // chama a lista de videos dinamicamente
-    searchVideo(video, playlist);
-
-    // guardo no localStorage qual o video que está tocando e passo para funcao videoAteFinal
-    db.update("videoateofim", {ID: 1}, function(row) {
-        row.numeroplaylist = playlist;
-        row.ultimomarcado = video;
-        
-        return row;
-    });
-    db.commit();
-
   _V_("video").ready(function(){
 
-      var myPlayer = this;
-      myPlayer.play();
-      myPlayer.addEvent("ended", videoAteFinal);
+        var myPlayer = this;
+        myPlayer.play();
+
+        // verifico se o video que recebeu o comando "play" eh o mesmo de anteriormente
+        ultimoTocado = db.query("videoateofim", {ID: 1})
+        var movie = document.getElementById('video');
+        if (video == ultimoTocado[0]["ultimomarcado"]) {
+            myPlayer.play();
+        } else {
+            // chama a lista de videos dinamicamente
+            searchVideo(video, playlist);
+        }
+        // guardo no localStorage qual o video que está tocando e passo para funcao videoAteFinal
+        db.update("videoateofim", {ID: 1}, function(row) {
+            row.numeroplaylist = playlist;
+            row.ultimomarcado = video;
+
+            return row;
+        });
+        db.commit();
+
+        myPlayer.play();
+        myPlayer.addEvent("ended", videoAteFinal);
     });
 };
 
