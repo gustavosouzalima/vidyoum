@@ -80,6 +80,7 @@ div#lista_videos p{
 margin-bottom: 5px;
 float: left;
 width: 25%;
+border-bottom: 1px solid #CCC;
 }
 
 .colunaunica {
@@ -255,4 +256,21 @@ i.cloud {
 
 #playlists_existentes {
     padding: 10px;
+}
+
+#playlists {
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+#statusvideo {
+    font-weight: bold;
+}
+
+.assistindo {
+    color: #359947;
+}
+
+.parado {
+    color: red;
 }

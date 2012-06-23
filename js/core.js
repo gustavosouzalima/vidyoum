@@ -159,7 +159,7 @@ function handleDragOver(evt) {
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
-function videoCompleto(videos, playlist) {
+function videoCompleto(video, playlist) {
     // No html5 eu deixo o video com a opcao preload="auto" para poder carregar o video que eu mudo aqui
     var caminhoDoVideo = db.query("pastavideo", {numeroplaylist: playlist});
     var arquivoVideo = []
@@ -169,17 +169,21 @@ function videoCompleto(videos, playlist) {
         }
     });
     // verifico se esta chegando para o valor do tipo numero
-    if(videos > 0) {
+    if(video > 0) {
         // altero o type do video de acordo com o arquivo carregado
-        type = arquivoVideo[videos].split(".");
+        type = arquivoVideo[video].split(".");
         $("video").attr("type","video/" + type[1] + '"');
     }
     // caminho completo ate o arquivo de video "caminho + nomedoarquivo"
-    caminhoCompleto = caminhoDoVideo[0]['caminho'] + "/" + arquivoVideo[videos];
+    caminhoCompleto = caminhoDoVideo[0]['caminho'] + "/" + arquivoVideo[video];
+    // insiro no html qual video está sendo tocado
+    nomedovideo = arquivoVideo[video].split('%20').join(' ');
+    $("#statusvideo").html('Assistindo o vídeo').removeClass("parado").addClass("assistindo");
+    $("#assistindovideo").html('<h3>'+nomedovideo+'</h3>').addClass("assistindo");
 }
 
-function searchVideo(videos, playlist) {
-    var buttonValueInt = parseInt(videos),
+function searchVideo(video, playlist) {
+    var buttonValueInt = parseInt(video),
         videoNumber = buttonValueInt -1;
     // chama a funcao que gera o video com caminho completo
     videoCompleto(videoNumber, playlist);
@@ -189,14 +193,16 @@ function searchVideo(videos, playlist) {
 }
 
 var videoAteFinal = function(){
-    var myPlayer = this;
+    var videoAtual = db.query("videoateofim", {ID: 1}),
+        playlist = videoAtual[0]['numeroplaylist'],
+        ultimovideo = videoAtual[0]['ultimomarcado'];
 
-    videoAtual = db.query("videoateofim", {ID: 1});
-    playlist = videoAtual[0]['numeroplaylist'];
-    ultimovideo = videoAtual[0]['ultimomarcado'];
+    var videoassistido = db.query("video", {numeroplaylist: playlist}),
+        nomedovideo = videoassistido[ultimovideo-1]["arquivovideo"].split('%20').join(' ');
 
-    console.log(playlist);
-    console.log(ultimovideo);
+    $("#statusvideo").html('Último vídeo assistido').removeClass("assistindo");
+    $("#assistindovideo").html('<h3>'+nomedovideo+'</h3>').removeClass("assistindo");
+
     var checks = db.query("checkbox", {numeroplaylist: playlist});
     $('input:checkbox[value='+ultimovideo+']').attr('checked', true);
     $('input:checkbox[name="checks'+playlist+'"]').each(function () {
@@ -211,16 +217,14 @@ var videoAteFinal = function(){
 };
 
 // PLAY e PAUSE do video
-function play(videos, playlist) {
+function play(video, playlist) {
     // chama a lista de videos dinamicamente
-    searchVideo(videos, playlist);
+    searchVideo(video, playlist);
 
     // guardo no localStorage qual o video que está tocando e passo para funcao videoAteFinal
-    numeroVideo = videos;
-    console.log(numeroVideo)
     db.update("videoateofim", {ID: 1}, function(row) {
         row.numeroplaylist = playlist;
-        row.ultimomarcado = numeroVideo;
+        row.ultimomarcado = video;
         
         return row;
     });
@@ -269,7 +273,7 @@ onload = function () {
             var videos = db.query("video", {numeroplaylist: playlists[i]["numeroplaylist"]});
             if(videos.length > 0) {
                 console.log("sao "+videos.length+" videos")
-                $("#playlists_existentes").append('<button class="g-button blue nofloat" onclick="criaPlaylist(' + videos.length + ", " + playlists[i]["numeroplaylist"] + '); mudaDeTab(); marcaVideo('+ playlists[i]["numeroplaylist"] + ');"> Playlist ' + playlists[i]["numeroplaylist"] + '</button>');
+                $("#playlists_existentes").append('<a class="g-button blue nofloat" onclick="criaPlaylist(' + videos.length + ", " + playlists[i]["numeroplaylist"] + '); mudaDeTab(); marcaVideo('+ playlists[i]["numeroplaylist"] + ');"> Playlist ' + playlists[i]["numeroplaylist"] + '</a>');
             }
         }
     }

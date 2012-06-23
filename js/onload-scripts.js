@@ -17,11 +17,27 @@ $(document).ready(function () {
   // docking
   $("#docking").jqxDocking({ width: 360, theme: 'classic' });
   $('#docking').jqxDocking('disableWindowResize', 'window1');
-  // $('#docking').jqxDocking({ orientation: 'vertical', width: 300, mode: 'docked' });
+  $('#docking').jqxDocking({ orientation: 'vertical', mode: 'docked' });
 
   // rss
-  $('#rss1').rssfeed('http://javascriptbrasil.com/feed',{}, function(e) {
+  // $('#rss1').rssfeed('http://javascriptbrasil.com/feed',{}, function(e) {
+  //   $(e).find('div.rssBody').vTicker();
+  // });
+  setRSSFeed('#menu');  
+
+  $('#menurss').change(function() {
+    setRSSFeed(this)
+  });
+
+  function setRSSFeed(obj) {
+    var feedurl = $('option:selected', obj).val();
+    
+    if (feedurl) {
+      $('#rss1').rssfeed(feedurl,{}, function(e) {
     $(e).find('div.rssBody').vTicker();
   });
+    }
+  }
+
 
 });

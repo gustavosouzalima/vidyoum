@@ -1,10 +1,10 @@
 =======
-vidyoum
+VidyouM
 =======
 
-O VidyouM é um programa em Javascript que lê os arquivos de video de uma pasta local de sua escolha e através de uma interface em html5 via acessa e organizar sua visualização no navegador.
+O VidyouM é um programa em Javascript que lê os arquivos de video de uma pasta local de sua escolha e através de uma interface em html5 via acessa e organizar sua visualização no navegador. Ele usa o localStorage para arquivar seus vídeos marcados para serem vistos mais tarde.
 
-***Manager yours videos!***
+***Manage your videos!***
 
 ---------------------------------------
 
@@ -36,12 +36,12 @@ Como usar
 
 Tecnologias e outros projetos utilizados
 ----------------------------------------
-VideoJS - http://videojs.com/
-jQWidgets - http://www.jqwidgets.com/
-jQuery - http://jquery.com/
-jQuery UI Notify Widget - http://www.erichynds.com/examples/jquery-notify/
-localStorageDB - http://kailashnadh.name/code/localstoragedb/
-Zrssfeed - http://www.zazar.net/developers/jquery/zrssfeed/
+- VideoJS - http://videojs.com/
+- jQWidgets - http://www.jqwidgets.com/
+- jQuery - http://jquery.com/
+- jQuery UI Notify Widget - http://www.erichynds.com/examples/jquery-notify/
+- localStorageDB - http://kailashnadh.name/code/localstoragedb/
+- Zrssfeed - http://www.zazar.net/developers/jquery/zrssfeed/
 
 
 ---------------------------------------
