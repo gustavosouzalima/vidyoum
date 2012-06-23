@@ -274,3 +274,7 @@ i.cloud {
 .parado {
     color: red;
 }
+
+.vjs-loading-spinner {
+    display: none!important;
+}

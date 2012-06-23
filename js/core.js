@@ -62,9 +62,9 @@ function marcaVideo(playlist) {
 
     // if(marcadostrue.length > 0  ) {
     //     // calcula qual o maior em posicao na playlist dos videos marcados
-    //     var ultimoMarcado = Math.max.apply(Math, marcadostrue);
+    //     var ultimotocado = Math.max.apply(Math, marcadostrue);
     //     // chama a funcao que gera o video com caminho completo
-    //     videoCompleto(ultimoMarcado-1);
+    //     videoCompleto(ultimotocado-1);
     //     document.getElementsByTagName('video')[0].src = caminhoCompleto;
     // }
 }
@@ -78,7 +78,7 @@ function criaPlaylist(videos, playlist) {
     }
     // adiciona o botao de limpar a playlist existente
     if($("#playlists > button").size() < 1 && (videos > 0)) {
-        $("#playlists").append('<button class="g-button red" onclick="deletaDB('+playlist+'); window.location.reload( true );">Limpar playlists</button>')
+        $("#playlists").append('<a href="#button" class="g-button red" onclick="deletaDB('+playlist+'); window.location.reload( true );">Limpar playlists</a>')
     }
 }
 
@@ -86,7 +86,6 @@ function criaPlaylist(videos, playlist) {
 function handleFileSelect(evt) {
     caminhoPlaylist = db.query("pastavideo");
     var playlist = caminhoPlaylist.length;
-    console.log(playlist)
     // verifico se existe alguma playlist ativa
     if(playlist > 0) {
         evt.stopPropagation();
@@ -134,11 +133,8 @@ function handleFileSelect(evt) {
         } else {
             notificacaoAcerto('<h3>Foi adicionado <strong><u>' + quantidadeVideos + '</u></strong> vídeo.</h3>');
         }
-        
         // remove estilizacao da borda do hover no drag and drop
         $("#borda").removeClass("hover");
-        // chama a funcao que adiciona a lista de videos marcados no localStorage
-        //marcaVideo();
     } else {
         // chama notificacao
         notificacaoErro('<h3>Você ainda não criou uma playlist.</h3>');
@@ -162,12 +158,8 @@ function handleDragOver(evt) {
 function videoCompleto(video, playlist) {
     // No html5 eu deixo o video com a opcao preload="auto" para poder carregar o video que eu mudo aqui
     var caminhoDoVideo = db.query("pastavideo", {numeroplaylist: playlist});
-    var arquivoVideo = []
-    db.query("video", function(row) {  // a funcao de callback eh aplicada a cada coluna da tabela
-        if(row.numeroplaylist == playlist) {
-            arquivoVideo.push(row.arquivovideo);
-        }
-    });
+    var arquivoVideo = gerarListaVideos(playlist);
+
     // verifico se esta chegando para o valor do tipo numero
     if(video > 0) {
         // altero o type do video de acordo com o arquivo carregado
@@ -193,9 +185,9 @@ function searchVideo(video, playlist) {
 }
 
 var videoAteFinal = function(){
-    var videoAtual = db.query("videoateofim", {ID: 1}),
-        playlist = videoAtual[0]['numeroplaylist'],
-        ultimovideo = videoAtual[0]['ultimomarcado'];
+    var ultimotocado = db.query("videoateofim", {ID: 1}),
+        playlist = ultimotocado[0]['numeroplaylist'],
+        ultimovideo = ultimotocado[0]['ultimotocado'];
 
     var videoassistido = db.query("video", {numeroplaylist: playlist}),
         nomedovideo = videoassistido[ultimovideo-1]["arquivovideo"].split('%20').join(' ');
@@ -216,33 +208,71 @@ var videoAteFinal = function(){
     db.commit();
 };
 
+function setOndeparou() {
+    _V_("video").ready(function(){
+        var myPlayer = this,
+            tempoCorridoVideo = myPlayer.currentTime(),
+            meuvideo = db.query("videoateofim", {ID: 1});
+
+        var arquivoVideo = gerarListaVideos(meuvideo[0]['numeroplaylist']);
+
+        var videoName = arquivoVideo[meuvideo[0]['ultimotocado'] - 1]
+
+        db.update("video", {arquivovideo: videoName}, function(row) {
+            row.ondeparou = tempoCorridoVideo;
+            return row;
+
+        });
+        db.commit();
+    });
+}
+
+function comecaDeOndeparou(video, playlist) {
+    // TODO: separara geracao da lista de videos em uma funcao
+    var arquivoVideo = gerarListaVideos(playlist);
+
+    videoName = arquivoVideo[video - 1];
+
+    _V_("video").ready(function(){
+        var myPlayer = this;
+    
+    dadosVideo = db.query("video", {arquivovideo: videoName})
+    var ondeParou =  parseInt(dadosVideo[0]['ondeparou']);    
+    myPlayer.currentTime(ondeParou);
+    myPlayer.addEvent("timeupdate", setOndeparou);
+    });
+}
+
 // PLAY e PAUSE do video
 function play(video, playlist) {
-  _V_("video").ready(function(){
 
+  _V_("video").ready(function(){
         var myPlayer = this;
         myPlayer.play();
 
         // verifico se o video que recebeu o comando "play" eh o mesmo de anteriormente
-        ultimoTocado = db.query("videoateofim", {ID: 1})
+        dadosvideo = db.query("videoateofim", {ID: 1})
         var movie = document.getElementById('video');
-        if (video == ultimoTocado[0]["ultimomarcado"]) {
+        if (video == dadosvideo[0]["ultimotocado"]) {
             myPlayer.play();
         } else {
             // chama a lista de videos dinamicamente
             searchVideo(video, playlist);
+            setTimeout('comecaDeOndeparou('+video+', '+playlist+')', 1000);
+            myPlayer.play();
         }
         // guardo no localStorage qual o video que está tocando e passo para funcao videoAteFinal
         db.update("videoateofim", {ID: 1}, function(row) {
             row.numeroplaylist = playlist;
-            row.ultimomarcado = video;
-
+            row.ultimotocado = video;
             return row;
         });
         db.commit();
 
-        myPlayer.play();
+        
+
         myPlayer.addEvent("ended", videoAteFinal);
+        
     });
 };
 
@@ -276,22 +306,39 @@ onload = function () {
     // criaPlaylist(playlists.length, 1);
     if(playlists.length > 0) {
         for (i in playlists) {
-            console.log("sao "+playlists[i]["numeroplaylist"]+" playlist")
             // conta a quantidade de itens na tabela de videos existente no localStorage
             var videos = db.query("video", {numeroplaylist: playlists[i]["numeroplaylist"]});
             if(videos.length > 0) {
-                console.log("sao "+videos.length+" videos")
                 $("#playlists_existentes").append('<a class="g-button blue nofloat" onclick="criaPlaylist(' + videos.length + ", " + playlists[i]["numeroplaylist"] + '); mudaDeTab(); marcaVideo('+ playlists[i]["numeroplaylist"] + ');"> Playlist ' + playlists[i]["numeroplaylist"] + '</a>');
             }
         }
     }
-
-    // adiciona a lista de videos marcados no localStorage e coloca o ultimo video no video inicial
-    //marcaVideo();
+    // toda vez que recarregar a pagina o ultimo video assistido sera removido do historico
+    db.update("videoateofim", {ID: 1}, function(row) {
+        row.numeroplaylist = 1;
+        row.ultimotocado = " ";
+        return row;
+    });
+    db.commit();
     
     // Setup the dnd listeners.
     var dropZone = document.getElementById('drop_zone');
     dropZone.addEventListener('dragover', handleDragOver, false);
     dropZone.addEventListener('dragleave', handleDragOver, false);
     dropZone.addEventListener('drop', handleFileSelect, false);
+}
+
+// Funcoes de apoio
+
+function gerarListaVideos(playlist) {
+    /*
+    Recebe uma playlist como parametro e gera uma lista com os videos da mesma
+    */
+    var listaVideos = []
+    db.query("video", function(row) {  // a funcao de callback eh aplicada a cada coluna da tabela
+        if(row.numeroplaylist == playlist) {
+            listaVideos.push(row.arquivovideo);
+        }
+    });
+    return listaVideos
 }

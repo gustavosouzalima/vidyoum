@@ -72,6 +72,7 @@
                 <option value="">[Escolha um RSS:]</option>
                 <option value="http://javascriptbrasil.com/feed">Javascript Brasil</option>
                 <option value="http://feeds.feedburner.com/JqueryBrasil">Jquery Brasil</option>
+                <option value="http://devcastbrasil.com/feed/">DevCast</option>
                 <option value="http://us1.campaign-archive.com/feed?u=0618f6a79d6bb9675f313ceb2&id=596bcf37c5">Javascript Weekly</option>
                 <option value="http://feeds.feedburner.com/html5rocks">HTML5Rocks</option>
               </select>
@@ -79,17 +80,6 @@
             </div>
         </div>
     </div>
-    <!-- some actions from Javascript -->
-    <button id="play">Play</button>
-    <button id="pause">Pause</button>
-    <button id="duration">Show duration</button>
-    <div id="duration-log"></div>
-    <script>
-      var movie = document.getElementById('video');
-      document.getElementById('play').addEventListener('click', function() { movie.play(); }, false);
-      document.getElementById('pause').addEventListener('click', function() { movie.pause(); }, false);
-      document.getElementById('duration').addEventListener('click', function() { document.querySelector('#duration-log').textContent = movie.duration; }, false);
-    </script>
   </div> <!-- fim div tudo -->
 <!-- <div class="clear"></div> -->
 <!-- scripts libs -->

@@ -5,11 +5,11 @@ function bancoDeDados() {
     if( db.isNew() ) {
 
         // Crio as tabelas
-        db.createTable("video", ["numeroplaylist", "arquivovideo"]);
+        db.createTable("video", ["numeroplaylist", "arquivovideo", "ondeparou"]);
         db.createTable("pastavideo", ["numeroplaylist", "caminho"]);
         db.createTable("checkbox", ["numeroplaylist", "marcados"]);
         db.createTable("pastavideoatual", ["numeroplaylist"]);
-        db.createTable("videoateofim", ["numeroplaylist", "ultimomarcado"]);
+        db.createTable("videoateofim", ["numeroplaylist", "ultimotocado"]);
         
         // crio esses campos como default no inicio
         db.insert("videoateofim", {numeroplaylist: 1, ultimomarcado: " "});
@@ -18,7 +18,8 @@ function bancoDeDados() {
         // all create/drop/insert/update/delete operations should be committed
         db.commit();
     }
-
+    // teste2 = db.query("videoateofim", {ID: 1});
+    // console.log(teste2[0]["ultimotocado"])
     // buscar e atualizar um campo
     // db.update("video", {numeroplaylist: 3}, function(row) {
     //     row.numeroplaylist = 4;
@@ -27,12 +28,6 @@ function bancoDeDados() {
     //     return row;
     // });
     // db.commit();
-
-    // // atualizando caminho dos videos
-    // db.update("pastavideo", {ID: 1}, function(row) {
-    //     row.caminho = caminhoCorrigido;
-    //     return row;
-    // });
 
     // REMOVER LINHA QUE SEJA DA PLAYLIST 1
     // db.deleteRows("video", {numeroplaylist: 1});
