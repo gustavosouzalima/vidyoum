@@ -7,9 +7,9 @@ $(document).ready(function () {
   $('#playlists').bind('selected', function (event) {
     var clickedItem = event.args.item;
     if(clickedItem == 0){
-      $("#playlists > button").hide();
+      $("#playlists > a").hide();
     } else if(clickedItem == 1) {
-      $("#playlists > button").show();
+      $("#playlists > a").show();
     }
   });
   // tab adiciona playlist

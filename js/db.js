@@ -6,7 +6,7 @@ function bancoDeDados() {
 
         // Crio as tabelas
         db.createTable("video", ["numeroplaylist", "arquivovideo", "ondeparou"]);
-        db.createTable("pastavideo", ["numeroplaylist", "caminho"]);
+        db.createTable("pastavideo", ["numeroplaylist", "caminho", "nomedaplaylist"]);
         db.createTable("checkbox", ["numeroplaylist", "marcados"]);
         db.createTable("pastavideoatual", ["numeroplaylist"]);
         db.createTable("videoateofim", ["numeroplaylist", "ultimotocado"]);
@@ -18,8 +18,6 @@ function bancoDeDados() {
         // all create/drop/insert/update/delete operations should be committed
         db.commit();
     }
-    // teste2 = db.query("videoateofim", {ID: 1});
-    // console.log(teste2[0]["ultimotocado"])
     // buscar e atualizar um campo
     // db.update("video", {numeroplaylist: 3}, function(row) {
     //     row.numeroplaylist = 4;

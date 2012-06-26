@@ -17,7 +17,7 @@
       <div id="playlists">
           <ul style='margin-left: 20px;'>
               <li>Playlists Existentes</li>
-              <li>Vídeos da Playlist Atual</li>
+              <li>Vídeos da Playlist</li>
           </ul>
           <div id="playlists_existentes">
           </div>
@@ -25,42 +25,7 @@
           <div id="lista_videos" class="checkbox-style">
           </div>
       </div>
-    </div>
-
-    <div id="videoplayer">
-      <video id="video" class="video-js vjs-default-skin"  
-        controls preload="auto" width="640" height="360" poster="img/fundovideo.jpg"
-        data-setup="{}">
-      <source src="" type="video/mp4"/>
-      </video>
-      <!-- inicio div adiciona-playlist -->
-        <div id="nova-playlist">
-          <ul style='margin-left: 20px;'>
-              <li>Criar nova Playlist</li>
-          </ul>
-        
-          <div id="adiciona-playlist">
-            <a href="#button" id="adicionaplaylist" class="g-button green">Adicionar uma nova playlist</a>
-            <div id="caminhovideo">
-              <label for="pastadosvideos">
-                <p>1º Coloque AQUI qual a pasta com seus vídeos → </p>
-              </label>
-              <input type="text" id="pastadosvideos" autofocus="autofocus" placeholder="Ex: /home/joao/videos">
-              <a href="#button" id="salvarcaminhovideo" class="g-button blue">Salvar</a>
-            </div>
-          </div> <!-- fim div adiciona-playlist -->
-      </div> <!-- fim div nova-playlist -->
-    </div> <!-- fim div videoplayer -->
-
-    <div id="sidebar-right">
-        <div id="drop_zone" webkitdirectory>
-          <div id="borda">
-            <i class="cloud"></i>
-            <span>Arraste seus videos para cá</span>
-          </div>
-        </div>
-    </div>
-    <div id="docking" style="position:relative; bottom: 230px; left: 6px;">
+      <div id="docking" style="position:relative; left: -5px;">
         <div>
             <div id="window1" style="height: 110px;">
             <div id="statusvideo" class="parado">Nenhum vídeo tocando</div>
@@ -78,6 +43,42 @@
               </select>
               <div id="rss1"></div>
             </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="videoplayer">
+      <video id="video" class="video-js vjs-default-skin"  
+        controls preload="auto" width="640" height="360" poster="img/fundovideo.jpg"
+        data-setup="{}">
+      <source src="" type="video/mp4"/>
+      </video>
+      <!-- inicio div adiciona-playlist -->
+        <div id="nova-playlist">
+          <ul style='margin-left: 20px;'>
+              <li>Criar nova Playlist</li>
+          </ul>
+        
+          <div id="adiciona-playlist">
+            <a href="#button" id="adicionaplaylist" class="g-button green">Adicionar uma nova playlist</a>
+            <div id="caminhovideo">
+              <label for="pastadosvideos">1º Coloque AQUI qual a pasta com seus vídeos</label><br />
+              <input type="text" id="pastadosvideos" autofocus="autofocus" placeholder="Ex: /home/joao/videos"><br />
+              <label for="nomeplaylist">2º Dê um nome para sua playlist</label><br />
+              <input type="text" id="nomeplaylist" placeholder="minhaPlaylistLegal"><br />
+              <label for="nomeplaylist">3º Selecione seus arquivos e arraste para o campo Drag and Drop a sua direita</label><br /><br />
+              <a href="#button" id="salvarcaminhovideo" class="g-button blue">Salvar</a>
+            </div>
+          </div> <!-- fim div adiciona-playlist -->
+      </div> <!-- fim div nova-playlist -->
+    </div> <!-- fim div videoplayer -->
+
+    <div id="sidebar-right">
+        <div id="drop_zone" webkitdirectory>
+          <div id="borda">
+            <i class="cloud"></i>
+            <span>Arraste seus videos para cá</span>
+          </div>
         </div>
     </div>
   </div> <!-- fim div tudo -->

@@ -47,15 +47,14 @@ a#adicionaplaylist {
 
 div#caminhovideo {
     padding: 15px;
-    border: 1px solid #CCC;
-    margin: 10px 0px;
+    border-top: 1px solid #CCC;
     display: none;
+    font-size: 15px;
 }
 
-div#caminhovideo label {
-    padding: 5px;
-    float:left;
-    margin-left: 25px;
+div#caminhovideo input[type="text"] {
+    padding: 5px 0;
+    margin: 10px 0;
 }
 div#caminhovideo p {
     font: 15px Helvetica;
@@ -256,11 +255,6 @@ i.cloud {
 
 #playlists_existentes {
     padding: 10px;
-}
-
-#playlists {
-    max-height: 200px;
-    overflow-y: scroll;
 }
 
 #statusvideo {
