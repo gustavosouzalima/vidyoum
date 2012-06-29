@@ -187,7 +187,6 @@ i {
     height: 100px;
     cursor: pointer;
     -webkit-user-select: none;
-
     -webkit-filter: drop-shadow( hsla(0,0%,100%,.5) 0  1px  1px )
                     drop-shadow( hsla(0,0%,100%,.5) 0 -6px  6px )
                     drop-shadow( hsla(0,0%,  0%,.3) 0 10px 10px );

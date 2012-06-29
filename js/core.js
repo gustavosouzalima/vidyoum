@@ -67,7 +67,7 @@ function criaPlaylist(videos, playlist) {
     }
     // quando carregada a playlist adiciona o botao de limpar a playlist existente
     $("#playlists > #limpaplaylist").remove();
-        $("#playlists").append('<a href="#limpa" id="limpaplaylist" class="g-button red" onclick="deletaDB('+playlist+'); window.location.reload( true );">Limpar playlist</a>')
+    $("#playlists").append('<a href="#limpa" id="limpaplaylist" class="g-button red" onclick="deletaDB('+playlist+'); window.location.reload( true );">Limpar playlist</a>')
 }
 
 // chamado quando colocado arquivos no drag and drop
