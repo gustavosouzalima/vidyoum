@@ -1,0 +1,287 @@
+ /* RESET ---------------------------------------------------------------------------------------- */
+
+    html, body, div, form, p,
+    code, pre { margin: 0; padding: 0; border: 0; vertical-align: baseline; font-family: sans-serif; }
+/* ---------------------------------------------------------------------------------------- RESET */
+
+body {
+    font-family: "Trebuchet MS";
+}
+
+h3 {
+    font-size: 14px;
+}
+
+.nofloat {
+    clear: both;
+}
+#tudo {
+    margin-top: 15px;
+}
+#sidebar-left {
+    float: left;
+    width: 23%;
+    margin-left: 10px;
+}
+#sidebar-right {
+    width: 15%;
+    float: left;
+    margin-left: 2%;
+}
+
+#videoplayer {
+    float: left;
+    margin-left: 7%;
+}
+#adiciona-playlist {
+    margin: 0px auto;
+}
+
+a#adicionaplaylist {
+    margin: 10px;
+}
+
+.playlist {
+    margin-bottom: 15px!important;
+}
+.clear {
+    clear: both;
+}
+
+div#caminhovideo {
+    padding: 15px;
+    border-top: 1px solid #CCC;
+    display: none;
+    font-size: 15px;
+}
+
+div#mostradragdrop {
+    margin-top: 10px;
+    border-top: 1px solid #CCC;
+    display: none;
+}
+
+div#mostradragdrop label {
+    margin-top: 10px;
+}
+
+div#caminhovideo input[type="text"] {
+    padding: 5px 0;
+    margin: 10px 0;
+}
+div#caminhovideo p {
+    font: 15px Helvetica;
+    color: #404040;
+    font-style: italic;
+}
+
+div#videopasta {
+    display: inline;
+}
+
+div#videopasta span {
+    float:left;
+}
+
+div#lista_videos {
+max-height: 300px;
+font-size:12px;
+}
+
+div#lista_videos p{
+margin-bottom: 5px;
+float: left;
+width: 25%;
+border-bottom: 1px solid #CCC;
+}
+
+.colunaunica {
+width: 100%!important;
+padding: 10px 0;
+}
+
+div#lista_videos p:first-child{
+margin-top: 0px;
+}
+
+div#lista_videos p a{
+font-size: 14px;
+text-decoration: none;
+padding: 0px 4px;
+}
+
+#video {
+box-shadow: 0 0 30px #000;
+max-width: 100%;
+max-height: 100%;
+}
+
+#video:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+/* estiliza os botoes */
+button:active {
+    position: relative;
+    top: 2px;
+}
+button.play {
+}
+button.pause {
+}
+
+div#drop_zone div#borda {
+    border: 8px dashed #68a5b7;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+div#drop_zone div#borda:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+div#drop_zone {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    background: #7CC0D5;
+}
+
+div#drop_zone:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+div#drop_zone span {
+    font-size: 33px;
+    text-align: center;
+    font-weight: bold;
+    color: #FFF;
+    text-shadow: 2px 1px 4px #000;
+    position: relative;
+    top: 30px;
+}
+
+.hover {
+    border-color: #0C0!important;
+}
+
+/* -------------- Cloud -------------- */
+
+i {
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    -webkit-user-select: none;
+
+    -webkit-filter: drop-shadow( hsla(0,0%,100%,.5) 0  1px  1px )
+                    drop-shadow( hsla(0,0%,100%,.5) 0 -6px  6px )
+                    drop-shadow( hsla(0,0%,  0%,.3) 0 10px 10px );
+
+    -webkit-mask-repeat: no-repeat;
+    float:left;
+}
+
+i.cloud::before {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: -webkit-linear-gradient(-45deg, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,.15) 50%, hsla(0,0%,100%,0) 50% );
+}
+
+i.cloud {
+    background-image: -webkit-radial-gradient( 50% 40%, 80% 60%,
+                        hsla(0,0%,100%,.3), hsla(0,0%,100%,0) 50%, hsla(0,0%,0%,.8) ),
+                        url(../img/whirl.jpg);
+    background-position: center, 25% 0%;
+
+    -webkit-mask-image: url(../svg/cloud.svg), url(../svg/cloud.svg);
+    -webkit-mask-composite: xor;
+    -webkit-mask-position: 0 0, -100px -100px;
+    -webkit-transition: -webkit-mask-position .4s cubic-bezier(.65, .06, 1, .42);
+    -webkit-animation: cloud-active 2s .4s cubic-bezier(0, .80, 1, .20) infinite;
+    -webkit-transform: translateY(1px);
+    -webkit-filter: drop-shadow( hsla(0,0%,100%,.5) 0  1px  1px )
+                    drop-shadow( hsla(0,0%,100%,.5) 0 -3px  6px )
+                    drop-shadow( hsla(0,0%,  0%,.3) 0  5px 10px );
+    margin-left: 27px;
+}
+
+@-webkit-keyframes cloud-active {
+      0% { -webkit-mask-position: 0 0, -100px -100px; }
+    100% { -webkit-mask-position: 0 0, -100px 30px; }
+}
+
+/*Botoes checkbox*/
+
+.checkbox-style input[type="checkbox"]:before
+{
+    content: "....";
+    background: url('../img/checkbox_unchecked.png') no-repeat;
+    color: transparent;
+    position: relative;
+    left: -1px;
+}
+
+.checkbox-style input[type="checkbox"]:checked:after
+{
+    content: "....";
+    background: url('../img/checkbox_checked.png') no-repeat;
+    color: transparent;
+    position: relative;
+    left: -13px;
+}
+
+.checkbox-style input[type="radio"]:before
+{
+    content: "....";
+    background: url('../img/radio_unchecked.png') no-repeat;
+    color: transparent;
+}
+
+.checkbox-style input[type="radio"]:checked:after
+{
+    content: "....";
+    background: url('../img/radio_checked.png') no-repeat;
+    color: transparent;
+    position: relative;
+    left: -14px;
+}
+
+.icone-lixo {
+    background: url("../img/icones/glyphicons_016_bin.png") no-repeat;
+}
+
+#playlists_existentes {
+    padding: 10px;
+}
+
+#statusvideo {
+    font-weight: bold;
+}
+
+.assistindo {
+    color: #359947;
+}
+
+.parado {
+    color: red;
+}
+
+.vjs-loading-spinner {
+    display: none!important;
+}

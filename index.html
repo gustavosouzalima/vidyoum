@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <title>VidyouM</title>
+    <link rel="stylesheet" href="js/libs/videojs/video-js.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/notify.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/google-buttons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jqwidgets/jqx.base.css" type="text/css" />
+    <!-- O jquery é chamado antes dos outros codigos javascritp -->
+    <script type="text/javascript" src="js/libs/jquery-1.7.2.min.js" ></script>
+</head>
+<body>
+  <div id="tudo">
+    <div id="sidebar-left">
+      <div id="playlists">
+          <ul style='margin-left: 20px;'>
+              <li>Playlists Existentes</li>
+              <li>Vídeos da Playlist</li>
+          </ul>
+          <div id="playlists_existentes">
+          </div>
+
+          <div id="lista_videos" class="checkbox-style">
+          </div>
+      </div>
+      <div id="docking" style="position:relative; left: -5px;">
+        <div>
+            <div id="window1" style="height: 110px;">
+            <div id="statusvideo" class="parado">Nenhum vídeo tocando</div>
+              <div id="assistindovideo"></div>
+            </div>
+            <div id="window2" style="height: 220px;">
+              <div>RSS</div>
+              <select id="menurss">
+                <option value="">[Escolha um RSS:]</option>
+                <option value="http://javascriptbrasil.com/feed">Javascript Brasil</option>
+                <option value="http://feeds.feedburner.com/JqueryBrasil">Jquery Brasil</option>
+                <option value="http://devcastbrasil.com/feed/">DevCast</option>
+                <option value="http://us1.campaign-archive.com/feed?u=0618f6a79d6bb9675f313ceb2&id=596bcf37c5">Javascript Weekly</option>
+                <option value="http://feeds.feedburner.com/html5rocks">HTML5Rocks</option>
+              </select>
+              <div id="rss1"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div id="videoplayer">
+      <video id="video" class="video-js vjs-default-skin"
+        controls preload="auto" width="640" height="360" poster="img/fundovideo.jpg"
+        data-setup="{}">
+      <source src="" type="video/mp4"/>
+      </video>
+      <!-- inicio div adiciona-playlist -->
+        <div id="nova-playlist">
+          <ul style='margin-left: 20px;'>
+              <li>Criar nova Playlist</li>
+          </ul>
+
+          <div id="adiciona-playlist">
+            <a href="#button" id="adicionaplaylist" class="g-button green">Adicionar uma nova playlist</a>
+            <div id="caminhovideo">
+              <label for="pastadosvideos">1º Coloque AQUI qual a pasta com seus vídeos</label><br />
+              <input type="text" id="pastadosvideos" autofocus="autofocus" placeholder="Ex: /home/joao/videos" required><br />
+              <label for="nomeplaylist">2º Dê um nome para sua playlist</label><br />
+              <input type="text" id="nomeplaylist" placeholder="minhaPlaylistLegal" required><br />
+              <button id="salvarcaminhovideo" class="g-button blue">Salvar</button><br />
+              <div id="mostradragdrop">
+                <br /><br />
+                <label for="nomeplaylist">3º Selecione seus arquivos e arraste para o campo Drag and Drop.</label><br /><br />
+                <div id="drop_zone" webkitdirectory>
+                  <div id="borda">
+                    <i class="cloud"></i>
+                    <span>Arraste seus videos para cá</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> <!-- fim div adiciona-playlist -->
+      </div> <!-- fim div nova-playlist -->
+    </div> <!-- fim div videoplayer -->
+
+    <div id="sidebar-right">
+
+    </div>
+  </div> <!-- fim div tudo -->
+<!-- <div class="clear"></div> -->
+<!-- scripts libs -->
+<script type="text/javascript" async defer src="js/libs/localstoragedb.min.js"></script>
+<script type="text/javascript" async defer src="js/libs/videojs/video.min.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxtabs.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxdocking.js"></script>
+<script type="text/javascript" defer src="js/libs/jqwidgets/jqxwindow.js"></script>
+<script type="text/javascript" defer src="js/libs/jquery.zrssfeed.min.js"></script>
+<script type="text/javascript" defer src="js/libs/jquery.vticker.js"></script>
+<!-- my scripts -->
+<script type="text/javascript" async defer src="js/db.js"></script>
+<script type="text/javascript" async defer src="js/core.js"></script>
+<script type="text/javascript" async defer src="js/libs/jquery-notify.js"></script>
+<script type="text/javascript" async defer src="js/notificacoesgerais.js"></script>
+<script type="text/javascript" defer defer src="js/onload-scripts.js"></script>
+</body>
+</html>
