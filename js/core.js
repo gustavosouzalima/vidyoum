@@ -143,33 +143,28 @@ function handleDragOver(evt) {
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
-function videoCompleto(video, playlist) {
+function searchVideo(video, playlist) {
+    var videoNumber = parseInt(video)-1;
     // No html5 eu deixo o video com a opcao preload="auto" para poder carregar o video que eu mudo aqui
     var caminhoDoVideo = db.query("pastavideo", {numeroplaylist: playlist});
     var arquivoVideo = gerarListaVideos(playlist);
 
-    // verifico se esta chegando para o valor do tipo numero
-    if(video > 0) {
-        // altero o type do video de acordo com o arquivo carregado
-        type = arquivoVideo[video].split(".");
-        $("video").attr("type","video/" + type[1] + '"');
-    }
     // caminho completo ate o arquivo de video "caminho + nomedoarquivo"
-    caminhoCompleto = caminhoDoVideo[0]['caminho'] + "/" + arquivoVideo[video];
+    caminhoCompleto = caminhoDoVideo[0]['caminho'] + "/" + arquivoVideo[videoNumber];
+
+    _V_("video").ready(function(){
+        var myPlayer = this;
+        type = arquivoVideo[videoNumber].split(".");
+
+        myPlayer.src({ type: "video/" + type[1], src: caminhoCompleto });
+    });
+    // document.getElementsByTagName('video')[0].src = caminhoCompleto;
+    // chamo a notificacao
+    notificacaoPlay('<h3>Assistindo o vídeo ' + videoNumber + '</h3>');
+    nomedovideo = arquivoVideo[videoNumber].split('%20').join(' ');
     // insiro no html qual video está sendo tocado
-    nomedovideo = arquivoVideo[video].split('%20').join(' ');
     $("#statusvideo").html('Assistindo o vídeo').removeClass("parado").addClass("assistindo");
     $("#assistindovideo").html('<h3>'+nomedovideo+'</h3>').addClass("assistindo");
-}
-
-function searchVideo(video, playlist) {
-    var buttonValueInt = parseInt(video),
-        videoNumber = buttonValueInt -1;
-    // chama a funcao que gera o video com caminho completo
-    videoCompleto(videoNumber, playlist);
-
-    document.getElementsByTagName('video')[0].src = caminhoCompleto;
-    notificacaoPlay('<h3>Assistindo o vídeo ' + buttonValueInt + '</h3>');
 }
 
 var videoAteFinal = function(){
@@ -194,6 +189,10 @@ var videoAteFinal = function(){
         return row;
     });
     db.commit();
+    // chama o proximo video da lista
+    if(ultimovideo < (videoassistido.length)){
+        setTimeout('play('+(ultimovideo+1)+', '+playlist+')', 500);
+    }
 };
 
 function setOndeparou() {
@@ -236,8 +235,6 @@ function play(video, playlist) {
 
   _V_("video").ready(function(){
         var myPlayer = this;
-        myPlayer.play();
-
         // verifico se o video que recebeu o comando "play" eh o mesmo de anteriormente
         dadosvideo = db.query("videoateofim", {ID: 1})
         var movie = document.getElementById('video');
@@ -258,7 +255,6 @@ function play(video, playlist) {
         db.commit();
 
         myPlayer.addEvent("ended", videoAteFinal);
-
     });
 };
 
