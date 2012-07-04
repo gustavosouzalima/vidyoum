@@ -17,6 +17,8 @@ function bancoDeDados() {
         // all create/drop/insert/update/delete operations should be committed
         db.commit();
     }
+    var video = db.query("video",{numeroplaylist:2})
+    console.log(video.length)
     // buscar e atualizar um campo
     // db.update("video", {numeroplaylist: 3}, function(row) {
     //     row.numeroplaylist = 4;

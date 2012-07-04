@@ -63,11 +63,87 @@ function criaPlaylist(videos, playlist) {
     $("#lista_videos p").remove();
     var listaVideos = videos + 1;
     for (var i = 1;i<listaVideos;i++) {
-        $("#lista_videos").append('<p><input type="checkbox" value='+i+'  name="checks'+playlist+'"> <span>'+i+'</span> <a href="#button" class="play" value='+i+' onclick="play('+i+", "+playlist+')">▶</a><a href="#button" class="pause" onclick="pause()"><strong>II</strong></a></p>');
+        $("#lista_videos").append('<p><input type="checkbox" value='+i+'  name="checks'+playlist+'"> <span>'+i+'</span> <a class="play" value='+i+' onclick="play('+i+", "+playlist+')">▶</a><a class="pause" onclick="pause()"><strong>II</strong></a></p>');
     }
+}
+
+// adiciona os videos na playlist
+function editaPlaylist(playlist) {
+    var playlists = db.query("pastavideo", {numeroplaylist: playlist});
+    var playlistName = playlists[0]["nomedaplaylist"];
     // quando carregada a playlist adiciona o botao de limpar a playlist existente
-    $("#playlists > #limpaplaylist").remove();
-    $("#playlists").append('<a href="#limpa" id="limpaplaylist" class="g-button red" onclick="deletaDB('+playlist+'); window.location.reload( true );">Limpar playlist</a>')
+    $("#listaplaylist").hide();
+
+    $("#edita-playlist").append('<div id="modificaplaylist"><h3>Renomear playlist</h3><input type="text" value="'+playlistName+'" ><a id="salvaplaylist" class="g-button green" onclick="renomeiaPlaylist('+playlist+'); window.location.reload( true );">Salvar</a><h3>Adicionar mais vídeos a playlist</h3><div id="drop_zone_edit" webkitdirectory><div id="borda"><i class="cloud"></i><span>Arraste seus videos para cá</span></div></div></div>');
+    $("#edita-playlist > #modificaplaylist").append('<br /><br /><a id="removeplaylist" class="g-button red" onclick="deletaDB('+playlist+'); window.location.reload( true );">Remover essa playlist</a>');
+    $("#edita-playlist > #modificaplaylist").append('<br /><br /><a id="editarplaylistvoltar" class="g-button blue" > < Voltar</a>');
+
+    $("a#editarplaylistvoltar").click(function() {
+        console.log("teste")
+        $("#modificaplaylist").remove();
+        $("#listaplaylist").fadeIn();
+    });
+    $('body').scrollTop(500);
+
+    // Setup the dnd listeners.
+    var dropZone = document.getElementById('drop_zone_edit');
+    dropZone.addEventListener('dragover', handleDragOver, false);
+    dropZone.addEventListener('dragleave', handleDragOver, false);
+    dropZone.addEventListener('drop', handleFileSelectEdit, false);
+
+    db.update("videoateofim", {ID: 1}, function(row) {
+        row.numeroplaylist = playlist;
+        return row;
+    });
+    db.commit();
+}
+
+// adiciona os videos na playlist
+function renomeiaPlaylist(playlist) {
+    var nomedaplaylist = $("#edita-playlist > input").val();
+    // atualiza o banco
+    db.update("pastavideo", {numeroplaylist: playlist}, function(row) {
+        row.nomedaplaylist = nomedaplaylist;
+        return row;
+    });
+    db.commit();
+}
+
+// chamado quando colocado arquivos no drag and drop numa playlist existente
+function handleFileSelectEdit(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    var ultimotocado = db.query("videoateofim", {ID: 1}),
+        playlist = ultimotocado[0]['numeroplaylist'];
+
+    var files = evt.dataTransfer.files; // FileList object.
+    // Adiciona lista de videos colocadas no drag and drop na playlist
+    for (var i = 0, f; f = files[i]; i++) {
+        if (f.type == "video/webm" || f.type == "video/ogg" || f.type == "video/mp4") {
+            // quantidade de videos carregados no drop and down
+            quantidadeVideos = i + 1;
+            // adiciona os videos em uma playlist já existente no localStorage
+            // TENHO QUE CONSERTAR ISSO!
+            db.insert("video", {numeroplaylist: playlist, arquivovideo: escape(f.name)});
+            db.commit();
+        } else {
+            // chama notificacao
+            notificacaoErro('<h3>O arquivo <strong><u>' + escape(f.name) + '</u></strong> não é um formato aceito.</h3>');
+        }
+    }
+
+    // remove a classe responsavel para estilizacao da playlist de videos
+    var numeroVideos = db.query("video", {numeroplaylist: playlist});
+    // chama notificacao
+    if(quantidadeVideos > 1){
+        notificacaoAcerto('<h3>Foram adicionados <strong><u>' + quantidadeVideos + '</u></strong> vídeos.</h3>');
+    } else {
+        notificacaoAcerto('<h3>Foi adicionado <strong><u>' + quantidadeVideos + '</u></strong> vídeo.</h3>');
+    }
+    // remove estilizacao da borda do hover no drag and drop
+    $("#borda").removeClass("hover");
+    window.location.reload( true );
 }
 
 // chamado quando colocado arquivos no drag and drop
@@ -114,7 +190,6 @@ function handleFileSelect(evt) {
             // remove a classe responsavel para estilizacao da playlist de videos
             var numeroVideos = db.query("video", {numeroplaylist: playlist});
         }
-        // chama a funcao que cria a playlist no html
         // chama notificacao
         if(quantidadeVideos > 1){
             notificacaoAcerto('<h3>Foram adicionados <strong><u>' + quantidadeVideos + '</u></strong> vídeos.</h3>');
@@ -267,8 +342,8 @@ function pause() {
     });
 };
 
-function mudaDeTab() {
-    $("#playlists").jqxTabs("select", 1);
+function mudaDeTab(i) {
+    $("#playlists").jqxTabs("select", i);
 }
 
 $("a#adicionaplaylist").click(function(){
@@ -292,13 +367,16 @@ onload = function () {
             var playlistName = playlists[i]["nomedaplaylist"];
             // busco os videos pertencentes a playlist
             var videos = db.query("video", {numeroplaylist: playlistNumero});
-
-            $("#playlists_existentes").append('<a class="g-button blue nofloat playlist" onclick="criaPlaylist(' + videos.length + ", " + playlistNumero + '); mudaDeTab(); marcaVideo('+ playlistNumero + ');">'+ playlistName + '</a>');
+            //playlists existentes
+            $("#playlists-existentes").append('<a class="g-button blue nofloat playlist" onclick="criaPlaylist(' + videos.length + ", " + playlistNumero + '); mudaDeTab('+1+'); marcaVideo('+ playlistNumero + ');">'+ playlistName + '</a>');
+            // lista playlists existentes para edita-las
+            $("#listaplaylist").append('<a class="g-button blue nofloat playlist" onclick="editaPlaylist(' + playlistNumero + ');" >'+ playlistName + '</a>');
             }
             // quando carregada a playlist adiciona o botao de limpar a playlist existente
-            if($("#playlists_existentes > #limpaplaylist").size() < 1) {
-                $("#playlists_existentes").append('<br /><a href="#limpa" id="limpaplaylist" class="g-button red" onclick="localStorage.clear(); window.location.reload( true );">Limpar todas playlists</a>')
-        }
+            if($("#listaplaylist > #removeplaylist").size() < 1) {
+                $("#listaplaylist").append('<br /><a id="removeplaylist" class="g-button red" onclick="localStorage.clear(); window.location.reload( true );">Remove todas playlists</a>')
+            }
+            $("#listaplaylist").prepend('<h3>Clique para editar</h3>');
     }
     // toda vez que recarregar a pagina o ultimo video assistido sera removido do historico
     db.update("videoateofim", {ID: 1}, function(row) {

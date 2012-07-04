@@ -108,6 +108,7 @@ div#lista_videos p a{
 font-size: 14px;
 text-decoration: none;
 padding: 0px 4px;
+cursor: pointer;
 }
 
 #video {
@@ -134,13 +135,13 @@ button.play {
 button.pause {
 }
 
-div#drop_zone div#borda {
+div#drop_zone div#borda, div#drop_zone_edit div#borda {
     border: 8px dashed #68a5b7;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
-div#drop_zone div#borda:after {
+div#drop_zone div#borda:after, div#drop_zone_edit div#borda:after {
     content: ".";
     display: block;
     height: 0;
@@ -148,7 +149,7 @@ div#drop_zone div#borda:after {
     visibility: hidden;
 }
 
-div#drop_zone {
+div#drop_zone, div#drop_zone_edit {
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -156,7 +157,7 @@ div#drop_zone {
     background: #7CC0D5;
 }
 
-div#drop_zone:after {
+div#drop_zone:after, div#drop_zone_edit:after {
     content: ".";
     display: block;
     height: 0;
@@ -164,7 +165,7 @@ div#drop_zone:after {
     visibility: hidden;
 }
 
-div#drop_zone span {
+div#drop_zone span, div#drop_zone_edit span {
     font-size: 33px;
     text-align: center;
     font-weight: bold;
@@ -265,8 +266,16 @@ i.cloud {
     background: url("../img/icones/glyphicons_016_bin.png") no-repeat;
 }
 
-#playlists_existentes {
+#playlists-existentes {
     padding: 10px;
+}
+
+#edita-playlist {
+    padding: 10px;
+}
+
+#removeplaylist {
+    margin-bottom: 20px;
 }
 
 #statusvideo {

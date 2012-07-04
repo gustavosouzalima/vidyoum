@@ -13,7 +13,10 @@ $(document).ready(function () {
     }
   });
   // tab adiciona playlist
-  $('#nova-playlist').jqxTabs({ width: 640});
+  $('#nova-playlist').jqxTabs({ width: 640})
+                     .jqxTabs({ selectedItem: 0 })
+                     .jqxTabs({ animationType: 'fade' })
+                     .jqxTabs({ selectionTracker:true});
   // docking
   $("#docking").jqxDocking({ width: 360, theme: 'classic' });
   $('#docking').jqxDocking('disableWindowResize', 'window1');
@@ -23,7 +26,7 @@ $(document).ready(function () {
   // $('#rss1').rssfeed('http://javascriptbrasil.com/feed',{}, function(e) {
   //   $(e).find('div.rssBody').vTicker();
   // });
-  setRSSFeed('#menu');  
+  setRSSFeed('#menu');
 
   $('#menurss').change(function() {
     setRSSFeed(this)
@@ -31,7 +34,7 @@ $(document).ready(function () {
 
   function setRSSFeed(obj) {
     var feedurl = $('option:selected', obj).val();
-    
+
     if (feedurl) {
       $('#rss1').rssfeed(feedurl,{}, function(e) {
     $(e).find('div.rssBody').vTicker();
